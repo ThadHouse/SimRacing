@@ -93,6 +93,8 @@ namespace SimConnector
 
             _packetNumber = pNum;
 
+            //Testing Multimple Computers
+
             if (_errorCount > 40)
             {
                 //Close Files
