@@ -12,7 +12,7 @@ namespace SimConnector
         private bool _initialized;
 
         private int _packetNumber, _errorCount;
-        static string memoryFile = "";
+        static string _memoryFile = "";
 
         private SimBinData _data;
 
@@ -41,7 +41,7 @@ namespace SimConnector
                     switch (i)
                     {
                         case 0:
-                            memoryFile = "Local\\$gtr2$";
+                            _memoryFile = "Local\\$gtr2$";
                             try
                             {
                                 _simBinReader.Initialize();
@@ -55,7 +55,7 @@ namespace SimConnector
                             }
                             break;
                         case 1:
-                            memoryFile = "Local\\$gtlegends$";
+                            _memoryFile = "Local\\$gtlegends$";
                             try
                             {
                                 _simBinReader.Initialize();
@@ -69,7 +69,7 @@ namespace SimConnector
                             }
                             break;
                         default:
-                            memoryFile = "Local\\$Race$";
+                            _memoryFile = "Local\\$Race$";
                             try
                             {
                                 _simBinReader.Initialize();
@@ -127,24 +127,27 @@ namespace SimConnector
 
             if (_errorCount > 40)
             {
-                _simBinReader.CloseFile();
-
-                _initialized = false;
-                _errorCount = 0;
-                _prevLapTime = 0;
-                memoryFile = "";
+                CloseFiles();
                 return CommonValueReturn.FileNotBeingUpdated;
 
             }
             return CommonValueReturn.Success;
         }
 
+        public override void CloseFiles()
+        {
+            _simBinReader.CloseFile();
+            _initialized = false;
+            _errorCount = 0;
+            _prevLapTime = 0;
+            _memoryFile = "";
+        }
 
         internal class SimBinReader : SharedMemoryReader<SimBinData>
         {
             protected override string Filename
             {
-                get { return memoryFile; }
+                get { return _memoryFile; }
             }
         }
     }

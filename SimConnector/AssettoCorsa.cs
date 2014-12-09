@@ -93,22 +93,25 @@ namespace SimConnector
 
             _packetNumber = pNum;
 
-            //Testing Multimple Computers
-
             if (_errorCount > 40)
             {
                 //Close Files
-                _physicsReader.CloseFile();
-                _staticReader.CloseFile();
-                _graphicsReader.CloseFile();
-                _initialized = false;
-                _errorCount = 0;
-                _packetNumber = 0;
+                CloseFiles();
                 return CommonValueReturn.FileNotBeingUpdated;
             }
 
             return CommonValueReturn.Success;
 
+        }
+
+        public override void CloseFiles()
+        {
+            _physicsReader.CloseFile();
+            _staticReader.CloseFile();
+            _graphicsReader.CloseFile();
+            _initialized = false;
+            _errorCount = 0;
+            _packetNumber = 0;
         }
 
         internal class PhysicsReader : SharedMemoryReader<ACPhysics>
