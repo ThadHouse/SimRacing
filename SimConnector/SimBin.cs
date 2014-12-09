@@ -11,7 +11,7 @@ namespace SimConnector
     {
         private bool _initialized;
 
-        private int _packetNumber, _errorCount;
+        private int _errorCount;
         static string _memoryFile = "";
 
         private SimBinData _data;
@@ -23,7 +23,6 @@ namespace SimConnector
         public SimBin()
         {
             _initialized = false;
-            _packetNumber = 0;
             _errorCount = 0;
             _simBinReader = new SimBinReader();
         }
