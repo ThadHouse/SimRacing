@@ -7,14 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SimConnector;
 
 namespace SimDisplay
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        DataCollector _simData;
+        public MainForm()
         {
             InitializeComponent();
+            threadTimer.Stop();
+        }
+
+        private void threadTimer_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 }
